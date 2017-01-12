@@ -147,6 +147,13 @@ class ProjectDownloadHelper(DownloadHelper):
       os.rename(filename, package_filename)
       filename = package_filename
 
+    asc_download_url = u'{0:s}.asc'.format(download_url)
+    asc_filename = self.DownloadFile(asc_download_url)
+    if asc_filename:
+      # TODO: run
+      # gpg --verify asc_filename filename
+      pass
+
     return filename
 
   @abc.abstractmethod
