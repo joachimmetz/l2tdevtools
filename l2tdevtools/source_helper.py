@@ -250,6 +250,25 @@ class SourcePackageHelper(SourceHelper):
 
     return directory_name
 
+  def CheckIntegrity(self):
+    """Checks the integrity of the source package.
+
+    Returns:
+      bool: True if the integrity of the source package is valid.
+    """
+    if not self._source_filename:
+      return False
+
+    self._source_filename = self._download_helper.Download(
+          self.project_name, project_version)
+
+    asc_download_url = u'{0:s}.asc'.format(download_url)
+    asc_filename = self.DownloadFile(asc_download_url)
+    if asc_filename:
+      # TODO: run
+      # gpg --verify asc_filename filename
+      pass
+
   def Clean(self):
     """Removes previous versions of source packages and directories."""
     project_version = self.GetProjectVersion()
