@@ -755,8 +755,8 @@ class TravisYmlWriter(DependencyFileWriter):
       '  - python setup.py bdist',
       ('  - if test ${TRAVIS_OS_NAME} = "linux"; then mkdir -p '
        '${PWD}/tmp/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ && '
-        'PYTHONPATH=${PWD}/tmp/lib/python${TRAVIS_PYTHON_VERSION}/'
-        'site-packages/ python setup.py install --prefix=${PWD}/tmp/; fi'),
+       'PYTHONPATH=${PWD}/tmp/lib/python${TRAVIS_PYTHON_VERSION}/'
+       'site-packages/ python setup.py install --prefix=${PWD}/tmp/; fi'),
       'after_success:',
       ('  - if test ${TRAVIS_OS_NAME} = "linux" && '
        'test ${TRAVIS_PYTHON_VERSION} = "2.7"; then coveralls --verbose; fi'),
