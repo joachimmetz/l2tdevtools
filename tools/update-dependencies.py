@@ -718,6 +718,62 @@ class TravisBeforeInstallScriptWriter(DependencyFileWriter):
       file_object.write(file_content)
 
 
+class TravisYmlWriter(DependencyFileWriter):
+  """.travis.yml file writer."""
+
+  PATH = os.path.join('.travis.yml')
+
+  _FILE_CONTENT = [
+      'language: python',
+      'matrix:',
+      '  include:',
+      '  - os: linux',
+      '    dist: trusty',
+      '    sudo: required',
+      '    group: edge',
+      '    python: 2.7',
+      '    env: TOXENV=py27',
+      '  - os: linux',
+      '    dist: trusty',
+      '    sudo: required',
+      '    group: edge',
+      '    python: 3.4',
+      '    env: TOXENV=py34',
+      '  - os: osx',
+      '    osx_image: xcode8.1',
+      '    language: generic',
+      '    env: PYTHONPATH=/Library/Python/2.7/site-packages/',
+      'install:',
+      '  - ./config/travis/install.sh',
+      'script:',
+      ('  - if test ${TRAVIS_OS_NAME} = "osx"; then '
+       'PYTHONPATH=/Library/Python/2.7/site-packages/ /usr/bin/python '
+       './run_tests.py; elif test ${TRAVIS_OS_NAME} = "linux"; then '
+       'tox --sitepackages ${TOXENV}; fi'),
+      '  - python setup.py build',
+      '  - python setup.py sdist',
+      '  - python setup.py bdist',
+      ('  - if test ${TRAVIS_OS_NAME} = "linux"; then mkdir -p '
+       '${PWD}/tmp/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ && '
+        'PYTHONPATH=${PWD}/tmp/lib/python${TRAVIS_PYTHON_VERSION}/'
+        'site-packages/ python setup.py install --prefix=${PWD}/tmp/; fi'),
+      'after_success:',
+      ('  - if test ${TRAVIS_OS_NAME} = "linux" && '
+       'test ${TRAVIS_PYTHON_VERSION} = "2.7"; then coveralls --verbose; fi'),
+      '']
+
+  def Write(self):
+    """Writes a .travis.yml file."""
+    file_content = []
+    file_content.extend(self._FILE_CONTENT)
+
+    file_content = '\n'.join(file_content)
+    file_content = file_content.encode('utf-8')
+
+    with open(self.PATH, 'wb') as file_object:
+      file_object.write(file_content)
+
+
 class ToxIniWriter(DependencyFileWriter):
   """Tox.ini file writer."""
 
@@ -789,7 +845,7 @@ if __name__ == '__main__':
 
   for writer_class in (
       AppveyorYmlWriter, RequirementsWriter, SetupCfgWriter,
-      TravisBeforeInstallScriptWriter, ToxIniWriter):
+      TravisBeforeInstallScriptWriter, TravisYmlWriter, ToxIniWriter):
     writer = writer_class(l2tdevtools_path, project_definition, helper)
     writer.Write()
 
