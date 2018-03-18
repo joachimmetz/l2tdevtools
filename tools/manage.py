@@ -388,6 +388,7 @@ class PyPIManager(object):
       'libvmdk-python': 'libvmdk',
       'libvshadow-python': 'libvshadow',
       'libvslvm-python': 'libvslvm',
+      'libvsmbr-python': 'libvsmbr',
       'logilab-common': 'logilab-common',
       'pefile': 'pefile',
       'pycrypto': 'pycrypto',
