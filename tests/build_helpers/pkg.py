@@ -7,9 +7,28 @@ from __future__ import unicode_literals
 import unittest
 
 
-# TODO: add PKGBuildHelper tests.
-# TODO: add ConfigureMakePKGBuildHelper tests.
-# TODO: add SetupPyPKGBuildHelper tests.
+class PKGBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build macOS packages (.pkg)."""
+
+  # TODO: add tests.
+
+
+class ConfigureMakePKGBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build macOS packages (.pkg)."""
+
+  # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
+
+
+class SetupPyPKGBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build macOS packages (.pkg)."""
+
+  # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 if __name__ == '__main__':

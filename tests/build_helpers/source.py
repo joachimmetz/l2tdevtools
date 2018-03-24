@@ -7,9 +7,28 @@ from __future__ import unicode_literals
 import unittest
 
 
-# TODO: add SourceBuildHelper tests.
-# TODO: add ConfigureMakeSourceBuildHelper tests.
-# TODO: add SetupPySourceBuildHelper tests.
+class SourceBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build projects from source."""
+
+  # TODO: add tests.
+
+
+class ConfigureMakeSourceBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build projects from source."""
+
+  # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
+
+
+class SetupPySourceBuildHelperTest(unittest.TestCase):
+  """Tests for the helper to build projects from source."""
+
+  # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 if __name__ == '__main__':

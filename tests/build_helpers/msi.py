@@ -17,12 +17,18 @@ class ConfigureMakeMSIBuildHelperTest(unittest.TestCase):
   """Tests for the helper to build Microsoft Installer packages (.msi)."""
 
   # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 class SetupPyMSIBuildHelperTest(unittest.TestCase):
   """Tests for the helper to build Microsoft Installer packages (.msi)."""
 
   # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 if __name__ == '__main__':

@@ -17,12 +17,18 @@ class ConfigureMakeOSCBuildHelperTest(unittest.TestCase):
   """Tests for the build with osc for the openSUSE build service."""
 
   # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 class SetupPyOSCBuildHelperTest(unittest.TestCase):
   """Tests for the build with osc for the openSUSE build service."""
 
   # TODO: add tests.
+  # TODO: add tests for Build
+  # TODO: add tests for CheckBuildRequired
+  # TODO: add tests for Clean
 
 
 if __name__ == '__main__':

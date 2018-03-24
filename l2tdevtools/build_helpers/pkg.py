@@ -14,7 +14,7 @@ from l2tdevtools.build_helpers import interface
 
 
 class PKGBuildHelper(interface.BuildHelper):
-  """Helper to build MacOS-X packages (.pkg)."""
+  """Helper to build macOS packages (.pkg)."""
 
   def __init__(self, project_definition, l2tdevtools_path):
     """Initializes a build helper.
@@ -100,7 +100,7 @@ class PKGBuildHelper(interface.BuildHelper):
     return not os.path.exists(dmg_filename)
 
   def Clean(self, source_helper_object):
-    """Cleans the MacOS-X packages in the current directory.
+    """Cleans the macOS packages in the current directory.
 
     Args:
       source_helper_object (SourceHelper): source helper.
@@ -133,7 +133,7 @@ class PKGBuildHelper(interface.BuildHelper):
 
 
 class ConfigureMakePKGBuildHelper(PKGBuildHelper):
-  """Helper to build MacOS-X packages (.pkg)."""
+  """Helper to build macOS packages (.pkg)."""
 
   _DOC_FILENAMES = frozenset([
       'AUTHORS',
@@ -277,7 +277,7 @@ class ConfigureMakePKGBuildHelper(PKGBuildHelper):
 
 
 class SetupPyPKGBuildHelper(PKGBuildHelper):
-  """Helper to build MacOS-X packages (.pkg)."""
+  """Helper to build macOS packages (.pkg)."""
 
   def Build(self, source_helper_object):
     """Builds the pkg package and distributable disk image (.dmg).
