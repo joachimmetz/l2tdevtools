@@ -115,6 +115,9 @@ def Main():
   commands_parser.add_parser('update-authors')
   commands_parser.add_parser('update_authors')
 
+  commands_parser.add_parser('update-pr')
+  commands_parser.add_parser('update_pr')
+
   commands_parser.add_parser('update-version')
   commands_parser.add_parser('update_version')
 
@@ -213,6 +216,9 @@ def Main():
 
   elif options.command in ('update-authors', 'update_authors'):
     result = review_helper.UpdateAuthors()
+
+  elif options.command in ('update-pr', 'update_pr'):
+    result = review_helper.UpdatePullRequest()
 
   elif options.command in ('update-version', 'update_version'):
     result = review_helper.UpdateVersion()

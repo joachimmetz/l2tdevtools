@@ -277,8 +277,11 @@ class GitHelper(cli.CLIHelper):
     self.RunCommand('git push origin --delete {0:s}'.format(branch))
     self.RunCommand('git branch -D {0:s}'.format(branch))
 
-  def SynchronizeWithOrigin(self):
+  def SynchronizeWithOrigin(self, branch):
     """Synchronizes git with origin.
+
+    Args:
+      branch (str): name of the branch.
 
     Returns:
       bool: True if the git repository has synchronized with origin.
@@ -287,7 +290,8 @@ class GitHelper(cli.CLIHelper):
     if exit_code != 0:
       return False
 
-    exit_code, _, _ = self.RunCommand('git pull --no-edit origin master')
+    command = 'git pull --no-edit origin {0:s}'.format(branch)
+    exit_code, _, _ = self.RunCommand(command)
 
     return exit_code == 0
 

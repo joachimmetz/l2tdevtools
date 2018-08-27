@@ -476,6 +476,20 @@ class ReviewHelper(object):
 
     return True
 
+  def UpdatePullRequest(self):
+    """Updates the local git clone of pull request and rebases with master.
+
+    Returns:
+      bool: True if the pull request was updated.
+    """
+    if not self._git_helper.SynchronizeWithUpstream():
+      print((
+          '{0:s} aborted - unable to synchronize with '
+          'upstream/master.').format(self._command.title()))
+      return False
+
+    return result
+
   def UpdateVersion(self):
     """Updates the version.
 
