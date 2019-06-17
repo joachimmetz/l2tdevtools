@@ -30,19 +30,22 @@ __file__ = os.path.abspath(__file__)
 class ProjectBuilder(object):
   """Class that helps in building projects."""
 
-  # The distributions to build dpkg-source packages for.
-  _DPKG_SOURCE_DISTRIBUTIONS = frozenset(['bionic'])
+  # The default distributions to build dpkg-source packages for.
+  DPKG_SOURCE_DISTRIBUTIONS = frozenset(['bionic'])
 
-  def __init__(self, build_target, l2tdevtools_path):
+  def __init__(self, build_target, l2tdevtools_path, distributions=None):
     """Initializes the project builder.
 
     Args:
       build_target (str): build target.
       l2tdevtools_path (str): path to l2tdevtools.
+      distributions (Optional[set[str])): distributions for dpkg-source build
+          target.
     """
     super(ProjectBuilder, self).__init__()
     self._build_helpers = {}
     self._build_target = build_target
+    self._distributions = distributions or self.DPKG_SOURCE_DISTRIBUTIONS
     self._l2tdevtools_path = l2tdevtools_path
     self._source_helpers = {}
 
@@ -112,14 +115,14 @@ class ProjectBuilder(object):
       return False
 
     if self._build_target == 'dpkg-source':
-      distributions = self._DPKG_SOURCE_DISTRIBUTIONS
-    else:
-      distributions = [None]
+      for distribution in self._distributions:
+        if not self._BuildProject(
+            build_helper_object, source_helper_object, distribution):
+          return False
 
-    for distribution in distributions:
-      if not self._BuildProject(
-          build_helper_object, source_helper_object, distribution):
-        return False
+    elif not self._BuildProject(
+        build_helper_object, source_helper_object, None):
+      return False
 
     if os.path.exists(build_helper_object.LOG_FILENAME):
       logging.info('Removing: {0:s}'.format(
@@ -272,6 +275,13 @@ def Main():
           'files e.g. projects.ini.'))
 
   argument_parser.add_argument(
+      '--distributions', dest='distributions', action='store',
+      metavar='DISTRIBUTION_NAME(S)', default=None, help=(
+          'comma separated list of specific distribution names to build for '
+          'the dpkg-source build target. The default is to build for: '
+          '{0:s}').format(', '.join(ProjectBuilder.DPKG_SOURCE_DISTRIBUTIONS)))
+
+  argument_parser.add_argument(
       '--preset', dest='preset', action='store',
       metavar='PRESET_NAME', default=None, help=(
           'name of the preset of project names to build. The default is to '
@@ -331,10 +341,15 @@ def Main():
     print('')
     return False
 
+  distributions = None
+  if options.distributions:
+    distributions = set(options.distributions.split(','))
+
   logging.basicConfig(
       level=logging.INFO, format='[%(levelname)s] %(message)s')
 
-  project_builder = ProjectBuilder(options.build_target, l2tdevtools_path)
+  project_builder = ProjectBuilder(
+      options.build_target, l2tdevtools_path, distributions=distributions)
 
   project_names = []
   if options.preset:
