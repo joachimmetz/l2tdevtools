@@ -1,0 +1,4 @@
+        ('${data_files_path}', glob.glob(
+            os.path.join('data', '*.*'))),
+        ('${data_files_path}/formatters', glob.glob(
+            os.path.join('data', 'formatters', '*.yaml'))),

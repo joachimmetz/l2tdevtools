@@ -51,17 +51,24 @@ def Main():
         'test_dependencies.ini')
 
   for writer_class in (
-      pylint_rc.PylintRcWriter, travis.TravisRunWithTimeoutScriptWriter,
-      requirements.RequirementsWriter, requirements.TestRequirementsWriter,
-      setup.SetupCfgWriter, setup.SetupPyWriter,
-      travis.TravisInstallScriptWriter, travis.TravisRunCoverageScriptWriter,
-      travis.TravisRunPylintScriptWriter, travis.TravisRunPython3ScriptWriter,
-      travis.TravisRunTestsScriptWriter,
+      travis.TravisRunWithTimeoutScriptWriter, setup.SetupCfgWriter,
+      setup.SetupPyWriter, travis.TravisInstallScriptWriter,
+      travis.TravisRunCoverageScriptWriter, travis.TravisRunPylintScriptWriter,
+      travis.TravisRunPython3ScriptWriter, travis.TravisRunTestsScriptWriter,
       travis.TravisRunWithTimeoutScriptWriter, travis_yml.TravisYMLWriter):
     writer = writer_class(
         l2tdevtools_path, project_definition, dependencies_helper,
         test_dependencies_helper)
     writer.Write()
+
+  if project_definition.name != 'timesketch':
+    for writer_class in (
+        pylint_rc.PylintRcWriter, requirements.RequirementsWriter,
+        requirements.TestRequirementsWriter):
+      writer = writer_class(
+          l2tdevtools_path, project_definition, dependencies_helper,
+          test_dependencies_helper)
+      writer.Write()
 
   for writer_class in (
       appveyor_yml.AppveyorYmlWriter,
@@ -79,6 +86,14 @@ def Main():
       continue
 
     writer = writer_class(
+        l2tdevtools_path, project_definition, dependencies_helper,
+        test_dependencies_helper)
+    writer.Write()
+
+  # Ensure dependencies are available.
+  script_path = os.path.join('config', 'linux', 'gift_ppa_install_py3.sh')
+  if os.path.isfile(script_path):
+    writer = linux_scripts.UbuntuInstallationScriptWriter(
         l2tdevtools_path, project_definition, dependencies_helper,
         test_dependencies_helper)
     writer.Write()
