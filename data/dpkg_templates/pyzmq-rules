@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export ZMQ_PREFIX=bundled;
+
 %:
 	dh $@ --buildsystem=pybuild --with=python3
 
