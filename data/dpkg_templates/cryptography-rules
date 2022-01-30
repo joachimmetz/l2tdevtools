@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-export CRYPTOGRAPHY_DONT_BUILD_RUST=1
+export CARGO_NET_OFFLINE=true
 
 %:
 	dh $@ --buildsystem=pybuild --with=python3
